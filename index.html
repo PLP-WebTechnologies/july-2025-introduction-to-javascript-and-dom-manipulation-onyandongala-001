@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Interactive Learning Playground</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .main-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2575fc;
+            border-bottom: 2px solid #6a11cb;
+            padding-bottom: 5px;
+        }
+
+        .section-part {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #6a11cb;
+        }
+
+        .section-part h3 {
+            margin-bottom: 10px;
+            color: #6a11cb;
+        }
+
+        input, button, select {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #2575fc;
+        }
+
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+
+        .code-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .user-inputs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .user-inputs > * {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .highlight {
+            color: #6a11cb;
+            font-weight: bold;
+        }
+
+        .function-demo {
+            background: #e6f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .loop-demo {
+            background: #fff2e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .dom-demo {
+            background: #f9f2ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Interactive Learning Playground</h1>
+            <p class="subtitle">Master JavaScript fundamentals through interactive examples</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Part 1: JavaScript Basics -->
+            <div class="section">
+                <h2 class="section-title">Part 1: JavaScript Basics</h2>
+                
+                <div class="section-part">
+                    <h3>Variables & Data Types</h3>
+                    <p>JavaScript has different data types: String, Number, Boolean, etc.</p>
+                    <div class="code-example">
+                        let name = "John"; // String<br>
+                        let age = 30; // Number<br>
+                        let isStudent = true; // Boolean
+                    </div>
+                    <button onclick="showVariables()">Show Variables Example</button>
+                    <div id="variables-output" class="output"></div>
+                </div>
+
+                <div class="section-part">
+                    <h3>Conditional Statements</h3>
+                    <p>Check if you're eligible to vote:</p>
+                    <div class="user-inputs">
+                        <input type="number" id="age-input" placeholder="Enter your age">
+                        <button onclick="checkVotingEligibility()">Check Eligibility</button>
+                    </div>
+                    <div id="condition-output" class="output"></div>
+                </div>
+
+                <div class="section-part">
+                    <h3>Comparison Operators</h3>
+                    <p>Compare two numbers:</p>
+                    <div class="user-inputs">
+                        <input type="number" id="num1" placeholder="First number">
+                        <input type="number" id="num2" placeholder="Second number">
+                    </div>
+                    <button onclick="compareNumbers()">Compare Numbers</button>
+                    <div id="comparison-output" class="output"></div>
+                </div>
+            </div>
+
+            <!-- Part 2: JavaScript Functions -->
+            <div class="section">
+                <h2 class="section-title">Part 2: JavaScript Functions</h2>
+                
+                <div class="function-demo">
+                    <h3>Function with Parameters</h3>
+                    <p>Calculate the area of a rectangle:</p>
+                    <div class="user-inputs">
+                        <input type="number" id="length" placeholder="Length">
+                        <input type="number" id="width" placeholder="Width">
+                    </div>
+                    <button onclick="calculateArea()">Calculate Area</button>
+                    <div id="area-output" class="output"></div>
+                </div>
+
+                <div class="function-demo">
+                    <h3>String Formatting Function</h3>
+                    <p>Format your text:</p>
+                    <input type="text" id="format-input" placeholder="Enter text">
+                    <div class="user-inputs">
+                        <button onclick="formatText('upper')">UPPERCASE</button>
+                        <button onclick="formatText('lower')">lowercase</button>
+                        <button onclick="formatText('capitalize')">Capitalize</button>
+                    </div>
+                    <div id="format-output" class="output"></div>
+                </div>
+
+                <div class="function-demo">
+                    <h3>Temperature Conversion</h3>
+                    <p>Convert between Celsius and Fahrenheit:</p>
+                    <input type="number" id="temp-input" placeholder="Enter temperature">
+                    <select id="conversion-type">
+                        <option value="cToF">Celsius to Fahrenheit</option>
+                        <option value="fToC">Fahrenheit to Celsius</option>
+                    </select>
+                    <button onclick="convertTemperature()">Convert</button>
+                    <div id="temp-output" class="output"></div>
+                </div>
+            </div>
+
+            <!-- Part 3: JavaScript Loops -->
+            <div class="section">
+                <h2 class="section-title">Part 3: JavaScript Loops</h2>
+                
+                <div class="loop-demo">
+                    <h3>For Loop</h3>
+                    <p>Generate a multiplication table:</p>
+                    <input type="number" id="multiplication-number" placeholder="Enter a number" value="5">
+                    <button onclick="generateMultiplicationTable()">Generate Table</button>
+                    <div id="multiplication-output" class="output"></div>
+                </div>
+
+                <div class="loop-demo">
+                    <h3>While Loop</h3>
+                    <p>Countdown from a number:</p>
+                    <input type="number" id="countdown-number" placeholder="Enter a number" value="10">
+                    <button onclick="startCountdown()">Start Countdown</button>
+                    <div id="countdown-output" class="output"></div>
+                </div>
+
+                <div class="loop-demo">
+                    <h3>Array Iteration</h3>
+                    <p>Process an array of fruits:</p>
+                    <button onclick="processFruits()">Process Fruits Array</button>
+                    <div id="fruits-output" class="output"></div>
+                </div>
+            </div>
+
+            <!-- Part 4: DOM Manipulation -->
+            <div class="section">
+                <h2 class="section-title">Part 4: DOM Manipulation</h2>
+                
+                <div class="dom-demo">
+                    <h3>Change Content & Styles</h3>
+                    <p id="style-text">This text will change when you click the button.</p>
+                    <div class="user-inputs">
+                        <button onclick="changeContent()">Change Content</button>
+                        <button onclick="changeStyle()">Change Style</button>
+                        <button onclick="resetStyle()">Reset</button>
+                    </div>
+                </div>
+
+                <div class="dom-demo">
+                    <h3>Add & Remove Elements</h3>
+                    <p>Dynamically manage list items:</p>
+                    <div class="user-inputs">
+                        <input type="text" id="new-item" placeholder="Enter item">
+                        <button onclick="addItem()">Add Item</button>
+                    </div>
+                    <ul id="item-list">
+                        <li>Sample item 1</li>
+                        <li>Sample item 2</li>
+                    </ul>
+                    <button onclick="clearList()">Clear List</button>
+                </div>
+
+                <div class="dom-demo">
+                    <h3>Event Handling</h3>
+                    <p>Move your mouse over and out of this box:</p>
+                    <div id="event-box" style="height: 100px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                        Hover over me!
+                    </div>
+                    <div id="event-output" class="output"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>JavaScript Interactive Learning Playground &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        // Part 1: JavaScript Basics
+
+        // Variables and Data Types
+        function showVariables() {
+            let name = "John Doe";
+            let age = 25;
+            let isStudent = true;
+            let hobbies = ["reading", "coding", "gaming"];
+            
+            let output = `
+                <span class="highlight">Name:</span> ${name} (${typeof name})<br>
+                <span class="highlight">Age:</span> ${age} (${typeof age})<br>
+                <span class="highlight">Is Student:</span> ${isStudent} (${typeof isStudent})<br>
+                <span class="highlight">Hobbies:</span> ${hobbies.join(", ")} (${typeof hobbies})
+            `;
+            
+            document.getElementById("variables-output").innerHTML = output;
+        }
+
+        // Conditional Statements
+        function checkVotingEligibility() {
+            let age = document.getElementById("age-input").value;
+            let outputElement = document.getElementById("condition-output");
+            
+            if (age === "") {
+                outputElement.innerHTML = "Please enter your age.";
+                return;
+            }
+            
+            age = parseInt(age);
+            
+            if (age >= 18) {
+                outputElement.innerHTML = `You are <span class="highlight">eligible</span> to vote!`;
+            } else {
+                outputElement.innerHTML = `You are <span class="highlight">not eligible</span> to vote yet. You need to wait ${18 - age} more years.`;
+            }
+        }
+
+        // Comparison Operators
+        function compareNumbers() {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let outputElement = document.getElementById("comparison-output");
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                outputElement.innerHTML = "Please enter valid numbers.";
+                return;
+            }
+            
+            let result = "";
+            
+            if (num1 > num2) {
+                result = `${num1} is <span class="highlight">greater than</span> ${num2}`;
+            } else if (num1 < num2) {
+                result = `${num1} is <span class="highlight">less than</span> ${num2}`;
+            } else {
+                result = `${num1} is <span class="highlight">equal to</span> ${num2}`;
+            }
+            
+            outputElement.innerHTML = result;
+        }
+
+        // Part 2: JavaScript Functions
+
+        // Calculate Area Function
+        function calculateArea() {
+            let length = parseFloat(document.getElementById("length").value);
+            let width = parseFloat(document.getElementById("width").value);
+            
+            if (isNaN(length) || isNaN(width)) {
+                document.getElementById("area-output").innerHTML = "Please enter valid numbers.";
+                return;
+            }
+            
+            let area = multiply(length, width);
+            document.getElementById("area-output").innerHTML = `The area of the rectangle is: <span class="highlight">${area}</span>`;
+        }
+
+        // Reusable multiplication function
+        function multiply(a, b) {
+            return a * b;
+        }
+
+        // String Formatting Function
+        function formatText(formatType) {
+            let inputText = document.getElementById("format-input").value;
+            
+            if (inputText === "") {
+                document.getElementById("format-output").innerHTML = "Please enter some text.";
+                return;
+            }
+            
+            let formattedText;
+            
+            switch(formatType) {
+                case 'upper':
+                    formattedText = inputText.toUpperCase();
+                    break;
+                case 'lower':
+                    formattedText = inputText.toLowerCase();
+                    break;
+                case 'capitalize':
+                    formattedText = inputText.charAt(0).toUpperCase() + inputText.slice(1).toLowerCase();
+                    break;
+                default:
+                    formattedText = inputText;
+            }
+            
+            document.getElementById("format-output").innerHTML = `Formatted text: <span class="highlight">${formattedText}</span>`;
+        }
+
+        // Temperature Conversion Function
+        function convertTemperature() {
+            let temp = parseFloat(document.getElementById("temp-input").value);
+            let conversionType = document.getElementById("conversion-type").value;
+            
+            if (isNaN(temp)) {
+                document.getElementById("temp-output").innerHTML = "Please enter a valid temperature.";
+                return;
+            }
+            
+            let result;
+            
+            if (conversionType === "cToF") {
+                result = (temp * 9/5) + 32;
+                document.getElementById("temp-output").innerHTML = `${temp}°C = <span class="highlight">${result.toFixed(1)}°F</span>`;
+            } else {
+                result = (temp - 32) * 5/9;
+                document.getElementById("temp-output").innerHTML = `${temp}°F = <span class="highlight">${result.toFixed(1)}°C</span>`;
+            }
+        }
+
+        // Part 3: JavaScript Loops
+
+        // For Loop - Multiplication Table
+        function generateMultiplicationTable() {
+            let number = parseInt(document.getElementById("multiplication-number").value);
+            
+            if (isNaN(number)) {
+                document.getElementById("multiplication-output").innerHTML = "Please enter a valid number.";
+                return;
+            }
+            
+            let table = `<span class="highlight">Multiplication Table for ${number}:</span><br>`;
+            
+            for (let i = 1; i <= 10; i++) {
+                table += `${number} × ${i} = <span class="highlight">${number * i}</span><br>`;
+            }
+            
+            document.getElementById("multiplication-output").innerHTML = table;
+        }
+
+        // While Loop - Countdown
+        function startCountdown() {
+            let number = parseInt(document.getElementById("countdown-number").value);
+            
+            if (isNaN(number) || number < 1) {
+                document.getElementById("countdown-output").innerHTML = "Please enter a valid number greater than 0.";
+                return;
+            }
+            
+            let countdown = `<span class="highlight">Countdown from ${number}:</span><br>`;
+            let i = number;
+            
+            while (i >= 0) {
+                countdown += i === 0 ? "<span class='highlight'>Liftoff! 🚀</span>" : `${i}...<br>`;
+                i--;
+            }
+            
+            document.getElementById("countdown-output").innerHTML = countdown;
+        }
+
+        // Array Iteration
+        function processFruits() {
+            const fruits = ["Apple", "Banana", "Orange", "Grape", "Mango"];
+            let output = `<span class="highlight">Fruits List:</span><br>`;
+            
+            // Using forEach to iterate through the array
+            fruits.forEach((fruit, index) => {
+                output += `${index + 1}. ${fruit}<br>`;
+            });
+            
+            output += `<br><span class="highlight">Fruits in uppercase:</span><br>`;
+            
+            // Using map to transform array elements
+            const upperCaseFruits = fruits.map(fruit => fruit.toUpperCase());
+            output += upperCaseFruits.join(", ");
+            
+            document.getElementById("fruits-output").innerHTML = output;
+        }
+
+        // Part 4: DOM Manipulation
+
+        // Change Content and Styles
+        function changeContent() {
+            const textElement = document.getElementById("style-text");
+            textElement.textContent = "The content has been changed using JavaScript!";
+        }
+
+        function changeStyle() {
+            const textElement = document.getElementById("style-text");
+            textElement.style.color = "#6a11cb";
+            textElement.style.fontWeight = "bold";
+            textElement.style.fontSize = "1.2em";
+            textElement.style.backgroundColor = "#f0f0f0";
+            textElement.style.padding = "10px";
+            textElement.style.borderRadius = "5px";
+        }
+
+        function resetStyle() {
+            const textElement = document.getElementById("style-text");
+            textElement.textContent = "This text will change when you click the button.";
+            textElement.removeAttribute("style");
+        }
+
+        // Add and Remove Elements
+        function addItem() {
+            const newItemInput = document.getElementById("new-item");
+            const newItemText = newItemInput.value.trim();
+            
+            if (newItemText === "") {
+                alert("Please enter an item.");
+                return;
+            }
+            
+            const list = document.getElementById("item-list");
+            const newListItem = document.createElement("li");
+            newListItem.textContent = newItemText;
+            
+            // Add click event to remove item when clicked
+            newListItem.addEventListener("click", function() {
+                this.remove();
+            });
+            
+            list.appendChild(newListItem);
+            newItemInput.value = "";
+        }
+
+        function clearList() {
+            const list = document.getElementById("item-list");
+            list.innerHTML = "";
+        }
+
+        // Event Handling
+        const eventBox = document.getElementById("event-box");
+        const eventOutput = document.getElementById("event-output");
+
+        eventBox.addEventListener("mouseover", function() {
+            this.style.backgroundColor = "#6a11cb";
+            this.style.color = "white";
+            eventOutput.innerHTML = "Mouse <span class='highlight'>over</span> the box!";
+        });
+
+        eventBox.addEventListener("mouseout", function() {
+            this.style.backgroundColor = "#e0e0e0";
+            this.style.color = "black";
+            eventOutput.innerHTML = "Mouse <span class='highlight'>out</span> of the box!";
+        });
+
+        // Initialize with some examples
+        window.onload = function() {
+            showVariables();
+            processFruits();
+        };
+    </script>
+</body>
+</html>
